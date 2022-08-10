@@ -1,8 +1,8 @@
 import './DryAged.scss';
-import meat1 from '../../assets/img/meat1.png';
-import meat2 from '../../assets/img/meat2.png';
-import meat3 from '../../assets/img/meat3.png';
-import meat4 from '../../assets/img/meat4.png';
+import meat1 from 'assets/img/meat1.png';
+import meat2 from 'assets/img/meat2.png';
+import meat3 from 'assets/img/meat3.png';
+import meat4 from 'assets/img/meat4.png';
 
 const DryAged = () => {
   return (

@@ -1,7 +1,7 @@
 import './ImageCarousel.scss';
-import leftArrow from '../../assets/icons/leftarr.png';
-import rightArrow from '../../assets/icons/rightarr.png';
-import image1 from '../../assets/img/image1.png';
+import leftArrow from 'assets/icons/leftarr.png';
+import rightArrow from 'assets/icons/rightarr.png';
+import image1 from 'assets/img/image1.png';
 
 const ImageCarousel = () => {
   return (

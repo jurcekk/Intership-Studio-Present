@@ -1,6 +1,5 @@
-import React from 'react';
 import './Buchen.scss';
-import meat5 from '../../assets/img/meat5.png';
+import meat5 from 'assets/img/meat5.png';
 
 const Buchen = () => {
   return (

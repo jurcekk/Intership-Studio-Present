@@ -1,0 +1,49 @@
+@use '../../sass/utils/colors' as colors;
+
+#image-gallery {
+  background-color: colors.$light-black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  @media only screen and (min-width: 800px) {
+    max-width: 100%;
+  }
+}
+
+.img-logo {
+  img {
+    width: 100%;
+    padding: 12px 0;
+    @media only screen and (min-width: 800px) {
+    }
+  }
+}
+
+.slike {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+
+  @media only screen and (min-width: 800px) {
+    flex-direction: row;
+  }
+
+  img {
+    @media only screen and (max-width: 570px) {
+      width: 186px;
+      height: 173px;
+    }
+
+    @media only screen and (max-width: 420px) {
+      width: 146px;
+      height: 133px;
+    }
+  }
+}
