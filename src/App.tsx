@@ -10,6 +10,8 @@ import Spices from 'components/Spices/Spices';
 import Fleisch from 'components/Fleisch/Fleisch';
 import Rating from 'components/Rating/Rating';
 import Prizes from 'components/Prizes/Prizes';
+import Reviews from 'components/Reviews/Reviews';
+import Footer from 'components/Footer/Footer';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
       <Fleisch />
       <Rating />
       <Prizes />
+      <Reviews />
+      <Footer />
     </>
   );
 }
