@@ -1,0 +1,50 @@
+@use '../../sass/utils/colors' as colors;
+
+#fleisch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 540px;
+  background-color: colors.$light-black;
+  background-image: url('/assets/img/meat-on-board.png');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+
+  @media only screen and (min-width: 1200px) {
+    background-size: 100%;
+  }
+
+  .dim {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    position: absolute;
+
+    h2 {
+      padding-bottom: 20px;
+      color: colors.$white;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+      background-color: #fff;
+      border: 1px solid colors.$button-color;
+      border-radius: 40px;
+      padding: 1rem 2rem;
+
+      &:hover {
+        background-color: colors.$button-color;
+        color: #fff;
+        border-color: #fff;
+      }
+
+      &:active {
+        background-color: #971d1d;
+      }
+    }
+  }
+}
