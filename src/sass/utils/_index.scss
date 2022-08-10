@@ -1,0 +1,6 @@
+@forward 'colors';
+@use 'fonts' as font;
+
+body {
+  font-family: font.$font;
+}
