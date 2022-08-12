@@ -7,146 +7,179 @@
   flex-direction: column;
   width: auto;
   position: relative;
+  height: 100%;
+  line-height: 0%;
 
-  .car-img {
-    object-fit: cover;
-    height: 300px;
+  .mySlides {
+    display: block;
     width: 100%;
+    background-size: cover;
+    background-position: center;
+    height: 400px;
 
-    @media only screen and (min-width: 900px) {
-      height: 400px;
-    }
     @media only screen and (min-width: 1200px) {
-      height: 500px;
+      height: 680px;
+    }
+
+    .car-img {
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+
+      @media (min-width: 1200px) {
+        height: 100%;
+      }
     }
   }
+
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   .arrows {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
-    bottom: 140px;
-    .dot1 {
-      height: 10px;
-      width: 10px;
-      background-color: colors.$red;
+    bottom: 42.5%;
+    width: 55%;
+
+    @media (min-width: 768px) {
+      bottom: 35%;
+      width: 35%;
+    }
+
+    @media (min-width: 1200px) {
+      justify-content: space-between;
+      align-items: center;
+      bottom: 3%;
+      width: 15%;
+      padding: 0;
+    }
+
+    .dot {
+      height: 17px;
+      width: 17px;
+      background-color: colors.$white;
       border-radius: 50%;
-      display: inline-block;
-      margin-bottom: -120px;
-      margin-left: 5px;
       border: 2px solid colors.$white;
+      cursor: pointer;
     }
-    .dot2 {
-      height: 10px;
-      width: 10px;
-      background-color: colors.$white;
-      border-radius: 50%;
-      display: inline-block;
-      margin-bottom: -120px;
-      margin-left: 5px;
+
+    .active {
+      background-color: colors.$button-color;
     }
-    .dot3 {
-      height: 10px;
-      width: 10px;
-      background-color: colors.$white;
-      border-radius: 50%;
-      display: inline-block;
-      margin-bottom: -120px;
-      margin-left: 5px;
-    }
-    .dot4 {
-      height: 10px;
-      width: 10px;
-      background-color: colors.$white;
-      border-radius: 50%;
-      display: inline-block;
-      margin-bottom: -120px;
-      margin-left: 5px;
-    }
-    .dot5 {
-      height: 10px;
-      width: 10px;
-      background-color: colors.$white;
-      border-radius: 50%;
-      display: inline-block;
-      margin-bottom: -120px;
-      margin-left: 5px;
-    }
+
     .leftar {
-      max-width: 20px;
-      max-height: 20px;
-      position: relative;
-      right: 5%;
-      top: 125px;
+      max-width: 33px;
+      max-height: 33px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &:active {
+        transform: scale(1);
+      }
     }
     .rightar {
-      max-width: 20px;
-      max-height: 20px;
-      position: relative;
-      left: 10%;
-      top: 125px;
+      max-width: 33px;
+      max-height: 33px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &:active {
+        transform: scale(1);
+      }
     }
   }
 }
 
 .image-text {
-  width: 300px;
-  padding: 33px;
   text-align: left;
-  background-color: rgba(colors.$light-black, $alpha: 0.5);
-  left: 0%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 500px;
-  @media only screen and (min-width: 1200px) {
-    width: 100%;
-    max-width: 500px;
+  background-color: colors.$light-black;
+  display: block;
+  width: 100%;
+  text-align: center;
+
+  @media (min-width: 1200px) {
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 33%;
+    text-align: left;
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
-  h2 {
-    margin: 0;
+  @media (min-width: 2440px) {
+    max-width: 850px;
+  }
+
+  h1 {
+    margin: 0 0 0 auto;
     font-size: 38px;
     line-height: 45px;
     font-weight: 700;
     $font: 'Roboto';
     color: colors.$white;
-    @media only screen and (max-width: 700px) {
+
+    @media (max-width: 700px) {
       font-size: 32px;
+    }
+
+    @media (min-width: 1200px) {
+      padding: 1.5rem 1rem 0 8rem;
+      margin: 0;
+    }
+
+    @media (min-width: 1920px) {
+      padding: 3rem 1rem 0 19rem;
+    }
+
+    @media (min-width: 2440px) {
+      font-size: 2.75rem;
+      line-height: 56px;
+      padding-left: 23rem;
     }
   }
 
   p {
-    margin: 0;
-    font-size: 15px;
+    margin: 0 auto;
+    font-size: 1rem;
     font-weight: 300;
     line-height: 24px;
     color: #ffffff;
-    @media only screen and (max-width: 600px) {
-      font-size: 14px;
+    padding: 1rem 0;
+
+    @media (min-width: 1200px) {
+      padding: 1.5rem 1rem 1.5rem 8rem;
+      margin: 0;
     }
-  }
-}
 
-@media only screen and (min-width: 600px) {
-  .image-text {
-    width: 100%;
-    float: none;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .image-text {
-    width: 100%;
-    float: none;
-  }
-}
+    @media (min-width: 1920px) {
+      padding: 1rem 1rem 3rem 19rem;
+      margin: 0;
+    }
 
-@media only screen and (min-width: 992px) {
-  .image-text {
-    width: 100%;
-    float: none;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .image-text {
-    width: 100%;
-    float: none;
+    @media (min-width: 2440px) {
+      font-size: 1.5rem;
+      line-height: 36px;
+      padding-left: 23rem;
+    }
   }
 }

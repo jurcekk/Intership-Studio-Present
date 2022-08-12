@@ -1,14 +1,43 @@
+import { useEffect, useState } from 'react';
 import './Rating.scss';
-import jrelogo from 'assets/img/jrelogo.png';
+
+interface RatingData {
+  title: string;
+  button: string;
+  logo: any;
+}
 
 const Rating = () => {
+  const [ratingData, setRatingData] = useState<RatingData>();
+
+  useEffect(() => {
+    async function fetchPrizes() {
+      try {
+        let response = await fetch(
+          'http://localhost:1337/api/rating/?populate=*'
+        );
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        let rating = await response.json();
+        setRatingData(rating.data.attributes);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchPrizes();
+  }, []);
   return (
     <section id='rating'>
       <div>
-        <img src={jrelogo} alt='jrelogo' />
+        <img
+          src={'http://localhost:1337' + ratingData?.logo.data.attributes.url}
+          alt={ratingData?.logo.data.attributes.alternativeText}
+        />
         <div className='rating-text'>
-          <h2>Metzgerei Brath ist Mitglied im Genussnetzwerk</h2>
-          <a href='#'>Gehen zu site</a>
+          <h2>{ratingData?.title}</h2>
+          <a href='#'>{ratingData?.button}</a>
         </div>
       </div>
     </section>

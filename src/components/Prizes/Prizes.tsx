@@ -1,40 +1,54 @@
-import './Prizes.scss';
+import { useEffect, useState } from 'react';
 import line from 'assets/img/line.png';
-import specoffer from 'assets/img/specoffer.png';
-import geniune from 'assets/img/genuine.png';
-import bestchoice from 'assets/img/bestchoice.png';
-import highq from 'assets/img/highq.png';
+import './Prizes.scss';
 
 const Prizes = () => {
+  const [prizes, setPrizes] = useState([]);
+
+  useEffect(() => {
+    async function fetchPrizes() {
+      try {
+        let response = await fetch(
+          'http://localhost:1337/api/prizes/?populate=*'
+        );
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        let prizes = await response.json();
+        setPrizes(prizes.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchPrizes();
+  }, []);
+
   return (
     <section id='prizes'>
       <div className='container'>
         <div className='logo'>
-          <img src={line} alt='line' />
+          <img
+            src='http://localhost:1337/uploads/line_1f7066599f.png?updated_at=2022-08-11T12:12:05.377Z'
+            alt='line'
+          />
         </div>
 
         <div className='prizes-images'>
           <h2>Auszeichnungen</h2>
           <div className='badges'>
-            <div className='badge'>
-              <img src={specoffer} alt='specoffer' />
-              <p className='text'>Tollit argumentum genau Saepe lobortis</p>
-            </div>
-
-            <div className='badge'>
-              <img src={geniune} alt='genuine' />
-              <p className='text'>Schneewittchen denique</p>
-            </div>
-
-            <div className='badge'>
-              <img src={bestchoice} alt='bestchoice' />
-              <p className='text'>Grimms Märchen expetenda</p>
-            </div>
-
-            <div className='badge'>
-              <img src={highq} alt='highquality' />
-              <p className='text'>Mettwurst mei ullum gloriatur</p>
-            </div>
+            {prizes.map((prize: any) => (
+              <div className='badge' key={prize.attributes.prizeName}>
+                <img
+                  src={
+                    'http://localhost:1337' +
+                    prize.attributes.Image.data.attributes.url
+                  }
+                  alt='specoffer'
+                />
+                <p className='text'>{prize.attributes.prizeName}</p>
+              </div>
+            ))}
           </div>
         </div>
         <div className='logo'>

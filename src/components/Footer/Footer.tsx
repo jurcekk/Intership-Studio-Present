@@ -1,61 +1,129 @@
 import './Footer.scss';
-import brlogo from 'assets/img/brlogo-transp.png';
-import twitter from 'assets/icons/twitter.png';
-import facebook from 'assets/icons/facebook.png';
-import youtube from 'assets/icons/youtube.png';
-import instagram from 'assets/icons/instagram.png';
+import { useEffect, useState } from 'react';
+
+interface FooterData {
+  address: string;
+  phone: string;
+  email: string;
+  twitterLink: string;
+  facebookLink: string;
+  instagramLink: string;
+  youtubeLink: string;
+  logo: any;
+  twitterIcon: any;
+  facebookIcon: any;
+  instagramIcon: any;
+  youtubeIcon: any;
+}
 
 const Footer = () => {
+  const [footerData, setFooterData] = useState<FooterData>();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let response = await fetch(
+          'http://localhost:1337/api/footer/?populate=*'
+        );
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        let footer = await response.json();
+        setFooterData(footer.data.attributes);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <footer className='footer'>
       <div className='footer-main'>
         <div className='information'>
           <div>
             <span className='lnr lnr-map-marker hidden'></span>
-            <p>
-              Klauprechtstraße 25
-              <br />
-              76137 Karlsruhe, Germany
-            </p>
+            <p>{footerData?.address}</p>
           </div>
           <div>
             <span className='lnr lnr-phone hidden'></span>
-            <p>+49 721 358060</p>
+            <p>{footerData?.phone}</p>
           </div>
           <div>
             <span className='lnr lnr-envelope hidden'></span>
-            <p>info@partyservice-brath.de</p>
+            <p>{footerData?.email}</p>
           </div>
         </div>
 
-        <img src={brlogo} alt='logo' className='footer-logo' />
+        <img
+          src={'http://localhost:1337' + footerData?.logo.data.attributes.url}
+          alt={footerData?.logo.data.attributes.alternativeText}
+          className='footer-logo'
+        />
 
         <div className='social'>
           <p>Besuchen Sie uns auf:</p>
           <div className='social-icons'>
-            <a href='https://twitter.com/' target='_blank' className='pulse'>
-              <img src={twitter} alt='twitter' width='50' height='50' />
-            </a>
             <a
-              href='https://www.facebook.com/'
+              href={footerData?.facebookLink}
               target='_blank'
               className='pulse'
             >
-              <img src={facebook} alt='facebook' width='50' height='50' />
+              <img
+                src={
+                  'http://localhost:1337' +
+                  footerData?.twitterIcon.data.attributes.url
+                }
+                alt={footerData?.twitterIcon.data.attributes.alternativeText}
+                width='50'
+                height='50'
+              />
             </a>
             <a
-              href='https://www.instagram.com/'
+              href={footerData?.facebookLink}
               target='_blank'
               className='pulse'
             >
-              <img src={instagram} alt='instagram' width='50' height='50' />
+              <img
+                src={
+                  'http://localhost:1337' +
+                  footerData?.facebookIcon.data.attributes.url
+                }
+                alt={footerData?.facebookIcon.data.attributes.alternativeText}
+                width='50'
+                height='50'
+              />
             </a>
             <a
-              href='https://www.youtube.com/'
+              href={footerData?.facebookLink}
               target='_blank'
               className='pulse'
             >
-              <img src={youtube} alt='youtube' width='50' height='50' />
+              <img
+                src={
+                  'http://localhost:1337' +
+                  footerData?.instagramIcon.data.attributes.url
+                }
+                alt={footerData?.instagramIcon.data.attributes.alternativeText}
+                width='50'
+                height='50'
+              />
+            </a>
+            <a
+              href={footerData?.facebookLink}
+              target='_blank'
+              className='pulse'
+            >
+              <img
+                src={
+                  'http://localhost:1337' +
+                  footerData?.youtubeIcon.data.attributes.url
+                }
+                alt={footerData?.youtubeIcon.data.attributes.alternativeText}
+                width='50'
+                height='50'
+              />
             </a>
           </div>
         </div>

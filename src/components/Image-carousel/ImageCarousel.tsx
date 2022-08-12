@@ -1,35 +1,110 @@
+import { useEffect, useState } from 'react';
 import './ImageCarousel.scss';
-import leftArrow from 'assets/icons/leftarr.png';
-import rightArrow from 'assets/icons/rightarr.png';
-import image1 from 'assets/img/image1.png';
+
+interface Text {
+  Title: string;
+  textBody: string;
+}
 
 const ImageCarousel = () => {
+  const [images, setImages] = useState([]);
+  const [text, setText] = useState<Text>();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    async function fetchImages() {
+      try {
+        let response = await fetch(
+          'http://localhost:1337/api/carousels/?populate=*'
+        );
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        let images = await response.json();
+        setImages(images.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    async function fetchText() {
+      try {
+        let response = await fetch(
+          'http://localhost:1337/api/image-carousel-text'
+        );
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        let text = await response.json();
+        setText(text.data.attributes);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchText();
+    fetchImages();
+  }, []);
+
+  const slides: string[] = [];
+  images.map((image: any) =>
+    slides.push(
+      'http://localhost:1337' +
+        image.attributes.carouselImage.data.attributes.url
+    )
+  );
+
+  const goToPrevious = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const goToNext = () => {
+    const isLastSlide = currentIndex === slides.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const goToSlide = (slideIndex: number) => {
+    setCurrentIndex(slideIndex);
+  };
+
+  const slideStylesWidthBackground = {
+    backgroundImage: `url(${slides[currentIndex]})`,
+  };
+
   return (
     <section id='image-carousel'>
-      <img src={image1} alt='' className='car-img' />
+      <div style={slideStylesWidthBackground} className='mySlides fade'></div>
       <div className='image-text'>
-        <h2>Heiko Brath Metzgermeister</h2>
+        <h1>{text?.Title}</h1>
 
-        <p>
-          Deutsches Ipsum Dolor deserunt dissentias Grimms Märchen et. Tollit
-          argumentum ius an. Pfannkuchen lobortis elaboraret per ne, nam Aperol
-          Spritz probatus pertinax.
-        </p>
+        <p>{text?.textBody}</p>
       </div>
 
       <div className='arrows'>
-        <img src={leftArrow} alt='left-arrow' className='leftar' />
-        <div className='dot1'></div>
+        <img
+          src='http://localhost:1337/uploads/leftarr_78daa2267b.png?updated_at=2022-08-11T12:12:27.185Z'
+          alt='left-arrow'
+          className='leftar'
+          onClick={goToPrevious}
+        />
 
-        <div className='dot2'></div>
+        {slides.map((slide, slideIndex) => (
+          <div
+            className='dot'
+            key={slideIndex}
+            onClick={() => goToSlide(slideIndex)}
+          ></div>
+        ))}
 
-        <div className='dot3'></div>
-
-        <div className='dot4'></div>
-
-        <div className='dot5'></div>
-
-        <img src={rightArrow} alt='right-arrow' className='rightar' />
+        <img
+          src='http://localhost:1337/uploads/rightarr_340a7852f5.png?updated_at=2022-08-11T12:12:27.280Z'
+          alt='right-arrow'
+          className='rightar'
+          onClick={goToNext}
+        />
       </div>
     </section>
   );
