@@ -81,8 +81,8 @@ const Footer = () => {
               />
             </a>
             <a
-              href={footerData?.facebookLink}
               target='_blank'
+              href={footerData?.facebookLink}
               className='pulse'
             >
               <img
